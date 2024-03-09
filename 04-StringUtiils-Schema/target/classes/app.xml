@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- bean definitions here -->
+	<bean id="stringUtilsBean" class="com.HAH.demo.bean.StringUtils"></bean>
+
+	<bean id="stringAspect" class="com.HAH.demo.aspect.StringAspect"></bean>
+
+	<aop:config>
+		<aop:aspect id="aspect" ref="stringAspect">
+			<aop:after-returning method="afterReturning"
+				arg-names="result,str1,str2" returning="result"
+				pointcut="execution(* com.HAH.demo.bean.*.*(..)) and args(str1,str2)" />
+		</aop:aspect>
+	</aop:config>
+
+</beans>
